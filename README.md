@@ -6,8 +6,9 @@ Basé sur l'inventaire `orange-instances.md`.
 
 ## Fichiers
 
-- **`blue-theme.css`** — la feuille de style (palette + overrides).
-- **`loader.js`** — le snippet à coller dans le Custom JS de GHL. Active le thème uniquement pour les `location ID` whitelistés (lus dans l'URL `/v2/location/<ID>`).
+- **`loader.js`** — le snippet COURT à coller dans le Custom JS de GHL. Vérifie le `location ID` dans l'URL (`/v2/location/<ID>`) et, si autorisé, charge `theme.js`.
+- **`theme.js`** — le moteur complet (V2) : injecte le CSS statique + **scanne dynamiquement toutes les feuilles de style et réécrit chaque orange en bleu** + `MutationObserver` pour les CSS injectés en async (Extendly, etc.).
+- **`blue-theme.css`** — CSS statique : palette `--primary-*` + sélecteurs sidebar clés (chargé par `theme.js`, évite le flash orange au démarrage).
 
 ## Installation dans GHL
 
