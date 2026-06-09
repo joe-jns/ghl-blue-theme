@@ -18,11 +18,46 @@
   var OUT_STYLE  = 'bt-blue-scan';   // <style> où on écrit nos overrides
   var LINK_ID    = 'bt-blue-theme';  // <link> du CSS statique
 
+  /* ---------- Logo : remplace le logo agence par "MLMCoPilot" -------
+     - text : le texte affiché à côté de l'icône
+     - img  : si tu préfères TA propre image, mets son URL ici
+              (sinon laisse '' et on utilise l'icône SVG + texte)        */
+  var LOGO = {
+    text: 'MLMCoPilot',
+    img:  ''
+  };
+
   /* ---------- 1. CSS statique (palette + sidebar) ------------------- */
   if (!document.getElementById(LINK_ID)) {
     var link = document.createElement('link');
     link.id = LINK_ID; link.rel = 'stylesheet'; link.href = CSS_URL;
     document.head.appendChild(link);
+  }
+
+  /* ---------- Remplacement du logo agence -------------------------- */
+  function buildLogo() {
+    if (LOGO.img) {
+      return '<img src="' + LOGO.img + '" alt="logo" class="bt-logo" ' +
+        'style="height:40px;max-width:80%;object-fit:contain">';
+    }
+    return '<div class="bt-logo" style="display:flex;align-items:center;' +
+      'gap:8px;height:40px">' +
+      '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" ' +
+      'stroke="#188bf6" stroke-width="2" stroke-linecap="round" ' +
+      'stroke-linejoin="round">' +
+      '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>' +
+      '<circle cx="9" cy="7" r="4"/>' +
+      '<path d="M22 21v-2a4 4 0 0 0-3-3.87"/>' +
+      '<path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' +
+      '<span style="font-weight:700;font-size:20px;color:#1a1f36;' +
+      'white-space:nowrap;font-family:inherit">' + LOGO.text + '</span></div>';
+  }
+  function replaceLogo() {
+    var conts = document.querySelectorAll('.agency-logo-container');
+    for (var i = 0; i < conts.length; i++) {
+      if (conts[i].querySelector('.bt-logo')) continue; // déjà remplacé
+      conts[i].innerHTML = buildLogo();
+    }
   }
 
   /* ---------- Helpers couleur -------------------------------------- */
@@ -171,6 +206,7 @@
   /* ---------- Lancement + debounce --------------------------------- */
   var t = null;
   function schedule() {
+    replaceLogo();
     if (t) clearTimeout(t);
     t = setTimeout(fullScan, 250);
   }
@@ -184,6 +220,7 @@
 
   /* ---------- MutationObserver : nouvelles feuilles injectées ------- */
   var obs = new MutationObserver(function (muts) {
+    replaceLogo();   // re-applique le logo si GHL a re-rendu la sidebar
     for (var i = 0; i < muts.length; i++) {
       var added = muts[i].addedNodes;
       for (var j = 0; j < added.length; j++) {
