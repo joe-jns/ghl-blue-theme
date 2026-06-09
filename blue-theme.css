@@ -1,0 +1,126 @@
+/* =====================================================================
+   GHL — Business Toolbox : thème BLEU (remplace l'orange BT)
+   ---------------------------------------------------------------------
+   Basé sur l'inventaire docs/orange-instances.md (capture 2026-05-27).
+   Stratégie V1 "quick win" :
+     1. Remap de la palette --primary-* en bleu
+     2. Override !important des sélecteurs orange hardcodés (sidebar, etc.)
+     3. Override des classes utilitaires Tailwind amber/orange/warning
+
+   Bleu de référence = #188bf6 (le bleu natif GHL).
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   1. PALETTE DE VARIABLES  (BT avait aplati --primary-* en orange)
+   On reconstruit une vraie échelle bleue.
+   --------------------------------------------------------------------- */
+:root {
+  --primary:        #188bf6 !important;
+  --custom-primary: #188bf6 !important;
+
+  --primary-25:  #f0f7ff !important;
+  --primary-50:  #e6f1fd !important;
+  --primary-100: #c7e0fb !important;
+  --primary-200: #a3ccf8 !important;
+  --primary-300: #6fb0f4 !important;
+  --primary-400: #3f97f0 !important;
+  --primary-500: #188bf6 !important;
+  --primary-600: #0f72d4 !important;
+  --primary-700: #0b5cad !important;
+  --primary-800: #0a4d8f !important;
+  --primary-900: #083d72 !important;
+
+  --custom-primary-border-color: rgba(24, 139, 246, .1) !important;
+}
+
+/* ---------------------------------------------------------------------
+   2. SIDEBAR — item actif / hover  (orange #F9A637 hardcodé par BT)
+   Sélecteur principal documenté + variantes de robustesse.
+   --------------------------------------------------------------------- */
+.sidebar-v2-location #sidebar-v2 .hl_nav-header nav a.active,
+.sidebar-v2-location #sidebar-v2 .hl_nav-header nav a.active:hover,
+.sidebar-v2-location #sidebar-v2 .hl_nav-header nav a:hover,
+#sidebar-v2 .hl_nav-header nav a.active,
+#sidebar-v2 .hl_nav-header nav a.active:hover,
+#sidebar-v2 nav a.active {
+  background-color: #188bf6 !important;
+  color: #ffffff !important;
+}
+
+/* État actif : icône + texte lisibles en blanc */
+#sidebar-v2 nav a.active svg,
+#sidebar-v2 nav a.active i,
+#sidebar-v2 nav a.active span {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+/* Custom link "Premiers Pas" (lien FR custom) si fond accent */
+#sidebar-v2 a.custom-link.active,
+#sidebar-v2 a.custom-link:hover {
+  background-color: #188bf6 !important;
+  color: #ffffff !important;
+}
+
+/* ---------------------------------------------------------------------
+   3. BOUTONS / CTA primaires basés sur --primary
+   (la plupart héritent déjà des vars ci-dessus, ceintures + bretelles)
+   --------------------------------------------------------------------- */
+.btn-primary,
+.hl-btn.btn-primary,
+button.primary,
+.bg-primary {
+  background-color: #188bf6 !important;
+  border-color: #188bf6 !important;
+}
+.btn-primary:hover,
+.hl-btn.btn-primary:hover {
+  background-color: #0f72d4 !important;
+  border-color: #0f72d4 !important;
+}
+.text-primary { color: #188bf6 !important; }
+.border-primary { border-color: #188bf6 !important; }
+
+/* ---------------------------------------------------------------------
+   4. CLASSES UTILITAIRES TAILWIND amber / orange  (GHL natif)
+   Couvre #f59e0b, #f48a06, #fff7ed, #c2410c, etc.
+   --------------------------------------------------------------------- */
+.bg-amber-50,  .bg-orange-50  { background-color: #f0f7ff !important; }
+.bg-amber-100, .bg-orange-100 { background-color: #e6f1fd !important; }
+.bg-amber-200, .bg-orange-200 { background-color: #c7e0fb !important; }
+.bg-amber-300, .bg-orange-300 { background-color: #a3ccf8 !important; }
+.bg-amber-400, .bg-orange-400 { background-color: #3f97f0 !important; }
+.bg-amber-500, .bg-orange-500 { background-color: #188bf6 !important; }
+.bg-amber-600, .bg-orange-600 { background-color: #0f72d4 !important; }
+.bg-amber-700, .bg-orange-700 { background-color: #0b5cad !important; }
+
+.text-amber-400, .text-orange-400 { color: #3f97f0 !important; }
+.text-amber-500, .text-orange-500 { color: #188bf6 !important; }
+.text-amber-600, .text-orange-600 { color: #0f72d4 !important; }
+.text-amber-700, .text-orange-700 { color: #0b5cad !important; }
+
+.border-amber-400, .border-orange-400 { border-color: #3f97f0 !important; }
+.border-amber-500, .border-orange-500 { border-color: #188bf6 !important; }
+
+/* ---------------------------------------------------------------------
+   5. BADGES / CHIPS  ("Beta" sur AI Studio, etc.)
+   --------------------------------------------------------------------- */
+.badge.badge-warning,
+.badge-warning,
+[class*="badge"][class*="beta"] {
+  background-color: #188bf6 !important;
+  color: #ffffff !important;
+}
+
+/* =====================================================================
+   6. ⚠️  ÉTATS "WARNING"  — décommente ce bloc si tu veux AUSSI
+   transformer les notifications/alertes warning en bleu.
+   Laissé désactivé par défaut : un warning doit rester visible comme
+   tel (cf. docs/orange-instances.md §Défis #4 "effets de bord").
+   ---------------------------------------------------------------------
+   .bg-warning, .btn-warning            { background-color: #188bf6 !important; }
+   .text-warning                        { color: #188bf6 !important; }
+   .border-warning                      { border-color: #188bf6 !important; }
+   .alert-warning                       { background-color: #e6f1fd !important;
+                                          border-color: #188bf6 !important; }
+   ===================================================================== */
